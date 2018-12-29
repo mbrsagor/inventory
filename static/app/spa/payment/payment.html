@@ -1,0 +1,107 @@
+<div class="well" style="margin-top:50px; background:#fff; color:#666">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>{{ pageTitle }}</h2>
+        </div>
+        <div class="col-lg-6 text-right">
+            <a href="/">Dashboard</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <button class="btn btn-success" data-toggle="modal" data-target="#salestype" data-backdrop="static", data-keyboard="false"><b>+</b> Add payment option</button>
+    </div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" ng-model="searchsalestype" placeholder="search payment status">
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="x_content" style="background:#fff;padding-top:30px;">
+            <table style="margin-bottom:0" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Sales Policy</th>
+                        <th scope="col">Create Date</th>
+                        <th style="text-align:center" scope="col">Update</th>
+                        <th style="text-align:center" scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="saelstype in salesTypeList | filter: searchsalestype | itemsPerPage: 8">
+                        <td>{{ saelstype.id }}</td>
+                        <td>{{ saelstype.payment }}</td>
+                        <td>{{ saelstype.date }}</td>
+                       
+                        <th style="text-align:center"><button class="btn btn-success" data-toggle="modal" data-target="#updateBtn" data-backdrop="static", data-keyboard="false" ng-click="currentItem(saelstype)"><i class="fa fa-edit"></i></button>
+                        </th>
+                        <th style="text-align:center"><button ng-click="deleteItem(saelstype.id)" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <dir-pagination-controls> </dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div style="margin-top:100px;" class="modal fade" id="salestype" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom1" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Payment option</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" ng-model="payment" placeholder="Add New payemnt option" class="form-control" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom1.$invalid" ng-click="addSalesType()" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- modal update/edit -->
+<div style="margin-top:100px;" class="modal fade" id="updateBtn" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Payment option</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" ng-model="id">
+                    <input type="text" ng-model="updateItems.payment" class="form-control" required/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom2.$invalid" ng-click="updateSales(id)" class="btn btn-success" data-dismiss="modal">update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

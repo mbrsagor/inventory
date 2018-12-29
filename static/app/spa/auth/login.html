@@ -1,0 +1,23 @@
+<div class="login_wrapper">
+  <div style="margin-top:200px;" class="animate form login_form">
+    <section class="login_content">
+      <form name="loginFrom" novalidate>
+          <div class="alert alert-danger " ng-if="state.error400">
+              Username or password is incorrect!
+            </div>
+        <h1><i class="fa fa-paw"></i> {{ pageTitle }}</h1>
+        <div>
+          <input type="text" ng-model="username" class="form-control" placeholder="Username" required/>
+        </div>
+        <div>
+          <input type="password"  ng-model="password" class="form-control" placeholder="Password" required/>
+        </div>
+        <div>
+          <button ng-click="loginBtn()" class="btn btn-success" ng-disabled="loginFrom.$invalid">Log in</button>
+          <a class="reset_pass" href="#">Lost your password?</a>
+        </div>
+        <div class="clearfix"></div>
+      </form>
+    </section>
+  </div>
+</div>

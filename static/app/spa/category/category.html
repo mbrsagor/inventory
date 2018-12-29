@@ -1,0 +1,99 @@
+<div class="well" style="margin-top:50px; background:#fff; color:#666">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>{{ pageTitle }}</h2>
+        </div>
+        <div class="col-lg-6 text-right">
+            <a href="/">Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <button class="btn btn-success" data-toggle="modal" data-target="#Modal2" data-backdrop="static", data-keyboard="false"><b>+</b> Add Category</button>
+    </div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" ng-model="searcCategory" placeholder="search category">
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="x_content" style="background:#fff;padding-top:30px;">
+            <table style="margin-bottom:0" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Create Date</th>
+                        <th style="text-align:center" scope="col">Update</th>
+                        <th style="text-align:center" scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="category in categoryList | filter: searcCategory | itemsPerPage: 8">
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.date }}</td>
+                        <th style="text-align:center"><button class="btn btn-success" data-toggle="modal" data-target="#updateBtn" ng-click="currentItem(category)" data-backdrop="static", data-keyboard="false"><i class="fa fa-edit"></i></button>
+                        </th>
+                        <th style="text-align:center"><button ng-click="deleteItem(category.id)" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <dir-pagination-controls> </dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div style="margin-top:100px;" class="modal fade" id="Modal2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                </div>
+                <div class="modal-body">
+                <input type="text" ng-model="name" class="form-control" placeholder="Category name" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom.$invalid" ng-click="addCategory()" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<!-- modal update/edit -->
+<div style="margin-top:100px;" class="modal fade" id="updateBtn" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
+                </div>
+                <div class="modal-body">
+                <input type="hidden" name="mId" ng-model="id">
+                <input type="text" ng-model="editCategory.name" class="form-control" required/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom2.$invalid" ng-click="updateCategory(id)" class="btn btn-success" data-dismiss="modal">update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

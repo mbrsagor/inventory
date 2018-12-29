@@ -1,0 +1,220 @@
+<div class="well" style="margin-top:50px; background:#fff; color:#666">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>{{ pageTitle }}</h2>
+        </div>
+        <div class="col-lg-6 text-right">
+            <a href="/">Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <button class="btn btn-success" data-toggle="modal" data-target="#Modal2" data-backdrop="static", data-keyboard="false"><b>+</b> Stock</button>
+    </div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" ng-model="searchStock" placeholder="search stock product">
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+    
+<div class="row">
+    <div class="col-lg-12">
+        <div class="x_content" style="background:#fff;padding-top:30px;">
+            <table style="margin-bottom:0" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Agent Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Wholesale</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Invoice Number</th>
+                        <th scope="col">Stock In</th>
+                        <th scope="col">Stock Out</th>
+                        <th scope="col">Pay status</th>
+                        <th scope="col">Date</th>
+                        <th style="text-align:center" scope="col">PDF</th>
+                        <th style="text-align:center" scope="col">Update</th>
+                        <th style="text-align:center" scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="stockin in StockInList |  filter: searchStock | itemsPerPage: 8 | orderBy: '-id'">
+                        <td>{{ stockin.product }}</td>
+                        <td>{{ stockin.category }}</td>
+                        <td>{{ stockin.agent }}</td>
+                        <td>{{ stockin.quantity }}</td>
+                        <td>{{ stockin.wholesale }}</td>
+                        <td>{{ stockin.price }}</td>
+                        <td>{{ stockin.invoice }}</td>
+                        <td>{{ stockin.stock_in }}</td>
+                        <td>{{ stockin.stock_out }}</td>
+                        <td>{{ stockin.pay_status }}</td>
+                        <td>{{ stockin.date }}</td>
+                        <td><a class="btn btn-success" target="__blank" href="http://127.0.0.1:8000/pdf/2"><i class="fa fa-book"></i></a></td>
+                        <td style="text-align:center"><button class="btn btn-success" data-toggle="modal" data-target="#updateBtn" ng-click="currentItem(stockin)" data-backdrop="static", data-keyboard="false"><i class="fa fa-edit"></i></button>
+                        </td>
+                        <td style="text-align:center"><button ng-click="deleteItem(stockin.id)" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <dir-pagination-controls> </dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<!-- Modal -->
+<div style="margin-top:20px;" class="modal fade" id="Modal2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Product Stock-In</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Select Product</span>
+                        <select class="form-control" ng-model="product"> 
+                            <option ng-repeat="p_list in productList" value="{{ p_list.id }}">{{ p_list.product_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <span>Select Category</span>
+                        <select ng-model="category" class="form-control">
+                            <option ng-repeat="c_list in categoryList" value="{{ c_list.id }}">{{ c_list.name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <span>Select Agent/Vendor</span>
+                        <select ng-model="agent" class="form-control">
+                            <option ng-repeat="v_list in vendorList" value="{{ v_list.id }}">{{ v_list.agent_name.username }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <span>Payment Status</span>
+                        <select ng-model="pay_status" class="form-control">
+                            <option ng-repeat="p_status in payStatus" value="{{ p_status.id }}">{{ p_status.payment }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="quantity" placeholder="Quantity amount" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="stock_in" placeholder="Stock in amount" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="stock_out" placeholder="Stock out amount" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="warranty" placeholder="Product warranty" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="price" placeholder="Product price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                            <input type="number" ng-model="deu_amount" placeholder="Deu amount" class="form-control" required>
+                        </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="wholesale" placeholder="Wholesale price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="barcode" placeholder="Product barcode" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="invoice" placeholder="Invoice Number" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom.$invalid" ng-click="StockIn()" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
+<!-- update Modal -->
+<div style="margin-top:20px;" class="modal fade" id="updateBtn" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Product Stock-In</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Select Product</span>
+                        <input type="hidden" ng-model="id">
+                        <select class="form-control" ng-model="edit.product"> 
+                            <option ng-repeat="p_list in productList" value="{{ p_list.id }}">{{ p_list.product_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <span>Select Category</span>
+                        <select ng-model="edit.category" class="form-control">
+                            <option ng-repeat="c_list in categoryList" value="{{ c_list.id }}">{{ c_list.name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <span>Select Agent/Vendor</span>
+                        <select ng-model="edit.agent" class="form-control">
+                            <option ng-repeat="v_list in vendorList" value="{{ v_list.id }}">{{ v_list.agent_name.username }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <span>Payment Status</span>
+                        <select ng-model="edit.pay_status" class="form-control">
+                            <option ng-repeat="p_status in payStatus" value="{{ p_status.id }}">{{ p_status.payment }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.quantity" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.stock_in" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.stock_out" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.warranty" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                            <input type="number" ng-model="edit.deu_amount" class="form-control" required>
+                        </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.wholesale" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.barcode" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.invoice" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom2.$invalid" ng-click="UpdateStockIn(id)" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->

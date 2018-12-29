@@ -1,0 +1,126 @@
+<div class="well" style="margin-top:50px; background:#fff; color:#666">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>{{ pageTitle }}</h2>
+            </div>
+            <div class="col-lg-6 text-right">
+                <a href="/">Dashboard</a>
+            </div>
+        </div>
+    </div>
+        
+    <div class="row">
+        <div class="col-lg-6">
+            <button class="btn btn-success" data-toggle="modal" data-target="#usersAdd" data-backdrop="static", data-keyboard="false"><b>+</b> Add User</button>
+        </div>
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-8"></div>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" ng-model="searchUser" placeholder="search user">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="x_content" style="background:#fff;padding-top:30px;">
+                <table style="margin-bottom:0" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th style="text-align:center" scope="col">Update</th>
+                            <th style="text-align:center" scope="col">Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="user in userList | filter: searchUser | itemsPerPage: 8">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <th style="text-align:center"><button class="btn btn-success" data-toggle="modal" data-target="#updateBtn" data-backdrop="static", data-keyboard="false" ng-click="currentItem(user)"><i class="fa fa-edit"></i></button>
+                            </th>
+                            <th style="text-align:center"><button ng-click="deleteItem(user.id)" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-right">
+                    <dir-pagination-controls> </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Modal -->
+<div style="margin-top:100px;" class="modal fade" id="usersAdd" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom1" id="demo-form2" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="username" ng-model="username" placeholder="Username" class="form-control" ng-minlength="3" ng-maxlength="10" required/>
+                        <span style="color:#f00" ng-show="validFrom1.username.$error.minlength">username to short!</span>
+                        <span style="color:#f00" ng-show="validFrom1.username.$error.maxlength">username to long!</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" ng-model="email" placeholder="Email Address" class="form-control" required/>
+                        <span style="color:#f00" ng-show="validFrom1.email.$error.email">Must be a valid email</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" ng-minlength="6" ng-maxlength="15" ng-model="password" placeholder="password" class="form-control" required/>
+                        <span style="color:#f00" ng-show="validFrom1.password.$error.minlength">password to Short!</span>
+                        <span style="color:#f00" ng-show="validFrom1.password.$error.maxlength">password to Long!</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom1.$invalid" ng-click="adduser()" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal update/edit -->
+<div style="margin-top:100px;" class="modal fade" id="updateBtn" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update user information</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" ng-model="id">
+                    <div class="form-group">
+                        <input type="text" name="username" ng-model="edit.username" class="form-control" ng-minlength="3" ng-maxlength="10" required required/>
+                        <span style="color:#f00" ng-show="validFrom2.username.$error.minlength">username to short!</span>
+                        <span style="color:#f00" ng-show="validFrom2.username.$error.maxlength">username to long!</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" ng-model="edit.email" class="form-control" required/>
+                        <span style="color:#f00" ng-show="validFrom2.email.$error.email">Must be a valid email</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" ng-model="edit.password" placeholder="new password" class="form-control" ng-minlength="6" ng-maxlength="15" required/>
+                        <span style="color:#f00" ng-show="validFrom2.password.$error.minlength">password to Short!</span>
+                        <span style="color:#f00" ng-show="validFrom2.password.$error.maxlength">password to Long!</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom2.$invalid" ng-click="updateUser(id)" class="btn btn-success" data-dismiss="modal">update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+.sqlite3
+media/*
+.cache
+
+# IDE
+.pylintrc
+tox.ini
+.vscode/*

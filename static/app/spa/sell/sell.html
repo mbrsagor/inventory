@@ -1,0 +1,182 @@
+<div class="well" style="margin-top:50px; background:#fff; color:#666">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>{{ pageTitle }}</h2>
+        </div>
+        <div class="col-lg-6 text-right">
+            <a href="/">Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <button class="btn btn-success" data-toggle="modal" data-target="#Modal2" data-backdrop="static", data-keyboard="false"><b>+</b> Sell product</button>
+    </div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" ng-model="searcSell" placeholder="search sell history">
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="x_content" style="background:#fff;padding-top:30px;">
+            <table style="margin-bottom:0" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Customar Name</th>
+                        <th scope="col">Payment Status</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Due</th>
+                        <th scope="col">Date</th>
+                        <th style="text-align:center" scope="col">Details</th>
+                        <th style="text-align:center" scope="col">Update</th>
+                        <th style="text-align:center" scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="sell in sellList | filter: searcSell | orderBy: '-id' | itemsPerPage: 8">
+                        <td>{{ sell.products }}</td>
+                        <td>{{ sell.customarName }}</td>
+                        <td>{{ sell.payment_type }}</td>
+                        <td>{{ sell.quantity }}</td>
+                        <td>{{ sell.price }}</td>
+                        <td>{{ sell.due }}</td>
+                        <td>{{ sell.date }}</td>
+                        <td style="text-align:center"><button class="btn btn-success" ng-click="detialsSell(id)"><i class="fa fa-link"></i></button> </td>
+                        <td style="text-align:center"><button class="btn btn-success" data-toggle="modal" data-target="#updateBtn" ng-click="currentItem(sell)" data-backdrop="static", data-keyboard="false"><i class="fa fa-edit"></i></button>
+                        </td>
+                        <td style="text-align:center"><button ng-click="deleteItem(sell.id)" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <dir-pagination-controls> </dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div style="margin-top:20px;" class="modal fade" id="Modal2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sell product for customar</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Select Product</span>
+                        <select ng-model="products" class="form-control">
+                            <option ng-repeat="p_list in productList" value="{{ p_list.id }}">{{ p_list.product_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="customarName" class="form-control" placeholder="Customar name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="address" class="form-control" placeholder="Customar address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" ng-model="phone_numbe" min="11" max="15" class="form-control" placeholder="+880 Customar phn number" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="due" class="form-control" placeholder="Due Payment 00.0TK" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" ng-model="payment_date" class="form-control" placeholder="Due Date" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="paid" class="form-control" placeholder="Pay" required>
+                    </div>
+                    <div class="form-group">
+                        <span>Payment Status</span>
+                        <select class="form-control" ng-model="payment_type">
+                            <option ng-repeat="payments in salesTypeList" value="{{ payments.id }}">{{ payments.payment }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="quantity" class="form-control" placeholder="Total quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="price" class="form-control" placeholder="Price 00.0TK" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom.$invalid" ng-click="sellProduct()" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
+<!-- modal update/edit -->
+<div style="margin-top:100px;" class="modal fade" id="updateBtn" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update sell product for customar</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="mId" ng-model="id">
+                    <div class="form-group">
+                        <span>Select Product</span>
+                        <select ng-model="edit.products" class="form-control">
+                            <option ng-repeat="p_list in productList" value="{{ p_list.id }}">{{ p_list.product_name }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.customarName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.address" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" ng-model="edit.phone_numbe" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.due" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" ng-model="edit.payment_date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.paid" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <span>Payment Status</span>
+                        <select class="form-control" ng-model="edit.payment_type">
+                            <option ng-repeat="payments in salesTypeList" value="{{ payments.id }}">{{ payments.payment }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.quantity" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" ng-model="edit.price" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom2.$invalid" ng-click="updateSellProduct(id)" class="btn btn-success" data-dismiss="modal">update</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

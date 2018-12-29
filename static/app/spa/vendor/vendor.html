@@ -1,0 +1,160 @@
+<div class="well" style="margin-top:50px; background:#fff; color:#666">
+    <div class="row">
+        <div class="col-lg-6">
+            <h2>{{ pageTitle }}</h2>
+        </div>
+        <div class="col-lg-6 text-right">
+            <a href="/">Dashboard</a>
+        </div>
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-lg-6">
+        <button class="btn btn-success" data-toggle="modal" data-target="#vendor" data-backdrop="static", data-keyboard="false"><b>+</b> Add Vendor</button>
+    </div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-8"></div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" ng-model="searchVendor" placeholder="search vendor">
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="x_content" style="background:#fff;padding-top:30px;">
+            <table style="margin-bottom:0" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Agent Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Contact</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">NID Card</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Date</th>
+                        <th style="text-align:center" scope="col">Update</th>
+                        <th style="text-align:center" scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr dir-paginate="vendor in vendorList | filter: searchVendor | itemsPerPage: 8 | orderBy: '-id'">
+                        <td>{{ vendor.agent_name }}</td>
+                        <td>{{ vendor.address }}</td>
+                        <td>{{ vendor.phone_number }}</td>
+                        <td>{{ vendor.email_address }}</td>
+                        <td>{{ vendor.company_name }}</td>
+                        <td>{{ vendor.nid_card }}</td>
+                        <td>{{ vendor.profile_pic }}</td>
+                        <td>{{ vendor.create_date }}</td>
+                        <th style="text-align:center"><button class="btn btn-success" data-toggle="modal" data-target="#updateBtn" data-backdrop="static", data-keyboard="false" ng-click="currentItem(vendor)"><i class="fa fa-edit"></i></button>
+                        </th>
+                        <th style="text-align:center"><button ng-click="deleteItem(vendor.id)" class="btn btn-danger" ><i class="fa fa-trash"></i></button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <dir-pagination-controls> </dir-pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+<!-- Modal -->
+<div style="margin-top:100px;" class="modal fade" id="vendor" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom1" id="demo-form2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New vendor</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Select User</span>
+                        <select ng-model="agent_name" class="form-control">
+                            <option ng-repeat="user in userList" value="{{user.id}}">{{ user.username }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="address" placeholder="Address" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="phone_number" ng-minlength="11" ng-maxlength="14" ng-model="phone_number" placeholder="Contact Number" class="form-control" required/>
+                        <span style="color:#f00" ng-show="validFrom1.phone_number.$error.minlength">username to short!</span>
+                        <span style="color:#f00" ng-show="validFrom1.phone_number.$error.maxlength">username to long!</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" ng-model="email_address" placeholder="Email Address" class="form-control" required/>
+                        <span style="color:#f00" ng-show="validFrom1.email.$error.email">Must be a valid email</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="company_name" placeholder="Company Name" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="nid_card" placeholder="NID Card" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="profile_pic" placeholder="profile image url" class="form-control"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom1.$invalid" ng-click="addVendor()" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    
+<!-- Update vendor model -->
+<div style="margin-top:100px;" class="modal fade" id="updateBtn" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form name="validFrom2" id="demo-form2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update vendor</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span>Select User</span>
+                        <input type="hidden" ng-model="id">
+                        <select ng-model="edit.agent_name" class="form-control">
+                            <option ng-repeat="user in userList" value="{{user.id}}">{{ user.username }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.address" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.phone_number" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" ng-model="edit.email_address" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.company_name" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.nid_card" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="edit.profile_pic" class="form-control"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" ng-disabled="validFrom2.$invalid" ng-click="UpdateVendor(id)" class="btn btn-success" data-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>    
