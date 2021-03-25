@@ -127,7 +127,7 @@ python-debian==0.1.32
 python-gnupg==0.4.4
 pytz==2018.5
 pyxdg==0.25
-PyYAML==3.12
+PyYAML==5.4
 pyzmq==17.1.2
 redis==2.10.5
 reportlab==3.5.6
