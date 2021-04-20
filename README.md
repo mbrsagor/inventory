@@ -1,9 +1,17 @@
 # Inventory web app
 
-Basically the app for simple inventory management web app. Backend using Django restfully API and frontend data receive Angular.JS
+> Basically the app for simple inventory management web app. Backend using Django restfully API and frontend data receive Angular.JS
 
 ### Setup
-> First Install python 3.6.6 in your system.
+
+The following steps will walk you thru installation on a Mac. I think linux should be similar. It's also possible to develop on a Windows machine, but I have not documented the steps. If you've developed django apps on Windows, you should have little problem getting up and running.
+
+##### Dependencies
+> Prerequisites
+
+- Python 3.6.6
+- Django 3.0.5
+- psql (PostgreSQL) 13.2
 
 ##### on Mac
 ```
