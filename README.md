@@ -10,7 +10,7 @@ The following steps will walk you thru installation on a Mac. I think linux shou
 > Prerequisites
 
 - Python 3.6.6
-- Django 3.0.5
+- Django 2.2.20
 - psql (PostgreSQL) 13.2
 
 ##### on Mac
