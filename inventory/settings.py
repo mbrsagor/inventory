@@ -18,22 +18,35 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+# Project apps
+PROJECT_APPS = [
     'account',
     'stock',
     'agents',
+]
 
-    # third party app
+# Install libraries apps
+LIBRARY_APPS = [
+    'rest_auth',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth',
+]
+INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS + LIBRARY_APPS
 
+# Cors Origin
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000"
 ]
 
 MIDDLEWARE = [
@@ -122,7 +135,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# Rest framework permisssions
+# Rest framework permissions
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',

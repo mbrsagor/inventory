@@ -32,7 +32,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Product Name</th>
-                        <th scope="col">Customar Name</th>
+                        <th scope="col">Customer Name</th>
                         <th scope="col">Payment Status</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Price</th>
@@ -46,7 +46,7 @@
                     <tbody>
                     <tr dir-paginate="sell in sellList | filter: searcSell | orderBy: '-id' | itemsPerPage: 8">
                         <td>{{ sell.products }}</td>
-                        <td>{{ sell.customarName }}</td>
+                        <td>{{ sell.customer_name }}</td>
                         <td>{{ sell.payment_type }}</td>
                         <td>{{ sell.quantity }}</td>
                         <td>{{ sell.price }}</td>
@@ -84,13 +84,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" ng-model="customarName" class="form-control" placeholder="Customar name" required>
+                        <input type="text" ng-model="customer_name" class="form-control" placeholder="Customer name" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" ng-model="address" class="form-control" placeholder="Customar address" required>
+                        <input type="text" ng-model="address" class="form-control" placeholder="Customer address" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" ng-model="phone_numbe" min="11" max="15" class="form-control" placeholder="+880 Customar phn number" required>
+                        <input type="tel" ng-model="phone_number" min="11" max="15" class="form-control" placeholder="+880 Customar phn number" required>
                     </div>
                     <div class="form-group">
                         <input type="number" ng-model="due" class="form-control" placeholder="Due Payment 00.0TK" required>
@@ -131,7 +131,7 @@
         <div class="modal-content">
             <form name="validFrom2">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update sell product for customar</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update sell product for Customer</h5>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="mId" ng-model="id">
@@ -142,13 +142,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="text" ng-model="edit.customarName" class="form-control" required>
+                        <input type="text" ng-model="edit.customer_name" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <input type="text" ng-model="edit.address" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" ng-model="edit.phone_numbe" class="form-control" required>
+                        <input type="tel" ng-model="edit.phone_number" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <input type="number" ng-model="edit.due" class="form-control" required>

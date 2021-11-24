@@ -1,12 +1,12 @@
 from django.db import models
-from account.models import Product, Category, Payment
 from agents.models import Vendors
-
 from django.db.models.signals import pre_save
+
+from account.models import Product, Category, Payment
 
 class StockIn(models.Model):
     product    = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="stockin_product")
-    category   = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="product_categorys")
+    category   = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="product_category")
     agent      = models.ForeignKey(Vendors, on_delete=models.CASCADE, related_name="vendor")
     pay_status = models.ForeignKey(Payment, on_delete=models.CASCADE, related_name="payment_status")
     stock_in   = models.IntegerField(default=0)

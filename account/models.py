@@ -33,9 +33,9 @@ class Payment(models.Model):
 
 
 class Sell(models.Model):
-    customarName = models.CharField(max_length = 30, blank=True, null=True)
+    customer_name = models.CharField(max_length = 30, blank=True, null=True)
     address      = models.CharField(max_length = 50, blank=True, null=True)
-    phone_numbe  = models.CharField(max_length = 15, blank=True, null=True)
+    phone_number  = models.CharField(max_length = 15, blank=True, null=True)
     due          = models.IntegerField(blank=True, null=True)
     payment_date = models.DateField(blank=True, null=True)
     paid         = models.IntegerField(blank=True, null=True)
@@ -46,4 +46,4 @@ class Sell(models.Model):
     date         = models.DateField(auto_now_add = True)
 
     def __str__(self):
-        return self.customarName
+        return self.customer_name

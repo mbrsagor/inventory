@@ -7,6 +7,5 @@ media/*
 tox.ini
 .vscode/*
 venv
-env
+.env
 media
-
