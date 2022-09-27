@@ -25,7 +25,10 @@ brew install pyenv-virtualenv
 pyenv virtualenv 3.6.6 env_name
 ```
 ###### Active your virtualenv
-``` source env_name/bin/activate ```
+```bash
+source venv/bin/activate
+.env
+```
 
 #### Install dependencies and active project.
 ```
