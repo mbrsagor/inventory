@@ -5,10 +5,10 @@ from django.db.models import Q
 from rest_framework.serializers import CharField
 
 
-# User registeration serializer
+# User registration serializer
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model  = User
+        model = User
         fields = [
             'id',
             'username',
@@ -16,17 +16,17 @@ class UserCreateSerializer(serializers.ModelSerializer):
             'password'
         ]
         extra_kwargs = {'password':
-            {'write_only': True}
-        }
-    
+                            {'write_only': True}
+                        }
+
     def create(self, validated_data):
         username = validated_data['username']
-        email    = validated_data['email']
+        email = validated_data['email']
         password = validated_data['password']
 
         user_obj = User(
-            username = username,
-            email    = email
+            username=username,
+            email=email
         )
         user_obj.set_password(password)
         user_obj.save()
@@ -36,7 +36,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 # Vendor/Agent
 class VendorSerializers(serializers.ModelSerializer):
     class Meta:
-        model  = Vendors
+        model = Vendors
         fields = '__all__'
 
     def to_representation(self, instance):

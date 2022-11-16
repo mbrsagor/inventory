@@ -22,14 +22,17 @@
                             <p class="mb-1">Company Name: <strong> {{ invoice.agent }}</strong></p>
                             <p>Stock Type: <strong> {{ invoice.status }}</strong></p>
                             <p>Item Warranty: <strong> {{ invoice.warranty }}</strong></p>
-                            <p class="mb-1"><span class="text-muted">Barcode: </span> <strong>{{ invoice.barcode }}</strong></p>
+                            <p class="mb-1"><span class="text-muted">Barcode: </span>
+                                <strong>{{ invoice.barcode }}</strong></p>
                         </div>
 
                         <div class="col-md-6 text-right">
                             <p class="font-weight-bold mb-4">Payment Details</p>
                             <p class="mb-1"><span class="text-muted">VAT: </span> <strong>0.00</strong></p>
-                            <p class="mb-1"><span class="text-muted">Price: </span> <strong>{{ invoice.price }}</strong></p>
-                            <p class="mb-1"><span class="text-muted">Payment Type: </span> <strong>{{ invoice.pay_status }}</strong></p>
+                            <p class="mb-1"><span class="text-muted">Price: </span> <strong>{{ invoice.price }}</strong>
+                            </p>
+                            <p class="mb-1"><span class="text-muted">Payment Type: </span>
+                                <strong>{{ invoice.pay_status }}</strong></p>
                         </div>
                     </div>
 
@@ -37,22 +40,22 @@
                         <div class="col-md-12">
                             <table style="border:1px solid #666; padding: 2px" class="table">
                                 <thead>
-                                    <tr>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Item</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Due Amount</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Quantity</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Wholesale</th>
-                                        <th class="border-0 text-uppercase small font-weight-bold">Total</th>
-                                    </tr>
+                                <tr>
+                                    <th class="border-0 text-uppercase small font-weight-bold">Item</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">Due Amount</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">Quantity</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">Wholesale</th>
+                                    <th class="border-0 text-uppercase small font-weight-bold">Total</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>{{ invoice.product }}</td>
-                                        <td style="text-align:center">{{ invoice.deu_amount }}</td>
-                                        <td style="text-align:center">{{ invoice.quantity }}</td>
-                                        <td style="text-align:center">{{ invoice.wholesale }}</td>
-                                        <td style="text-align:center">{{ invoice.price }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ invoice.product }}</td>
+                                    <td style="text-align:center">{{ invoice.deu_amount }}</td>
+                                    <td style="text-align:center">{{ invoice.quantity }}</td>
+                                    <td style="text-align:center">{{ invoice.wholesale }}</td>
+                                    <td style="text-align:center">{{ invoice.price }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
