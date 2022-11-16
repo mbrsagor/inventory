@@ -9,6 +9,7 @@ from .views import (
 )
 
 from rest_framework.routers import DefaultRouter
+
 account_router = DefaultRouter()
 
 account_router.register('category', CategoryViewSet)

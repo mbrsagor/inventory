@@ -3,16 +3,14 @@ from .models import Category, Product, Payment, Sell
 
 
 class CategorySerializer(serializers.ModelSerializer):
-   
     class Meta:
-        model  = Category
+        model = Category
         fields = '__all__'
 
 
 class ProductSerializer(serializers.ModelSerializer):
-  
     class Meta:
-        model  = Product
+        model = Product
         fields = '__all__'
 
     def to_representation(self, instance):
@@ -21,19 +19,16 @@ class ProductSerializer(serializers.ModelSerializer):
         return response
 
 
-
 class PaymentSerializer(serializers.ModelSerializer):
-
     class Meta:
-        model  = Payment
+        model = Payment
         fields = '__all__'
 
 
 class SellSerializer(serializers.ModelSerializer):
-
     class Meta:
-        model  = Sell
-        fields = ('__all__')
+        model = Sell
+        fields = '__all__'
 
     def to_representation(self, instance):
         response = super().to_representation(instance)

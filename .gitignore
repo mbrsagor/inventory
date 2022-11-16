@@ -1,11 +1,10 @@
 .sqlite3
-media/*
 .cache
 .idea
-# IDE
 .pylintrc
 tox.ini
-.vscode/*
+.vscode
 venv
 .env
 media
+
