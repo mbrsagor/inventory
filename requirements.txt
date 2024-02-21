@@ -28,7 +28,7 @@ pylint-django==2.0.2
 pylint-plugin-utils==0.4
 pymacaroons==0.13.0
 PyNaCl==1.1.2
-PyPDF2==1.27.5
+PyPDF2==1.27.9
 pyRFC3339==1.0
 pyshp==1.2.3
 pytest==3.8.0
